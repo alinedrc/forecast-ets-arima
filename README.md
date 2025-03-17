@@ -1,2 +1,5 @@
 # forecast-ets-arima
-Análise de séries temporais - Estatística  com linguagem R
+
+Time series analysis - Statistics with the R language
+
+The purpose of this code is to analyze the correlation and behavior of time series of water and electricity consumption through statistics using the R language.
