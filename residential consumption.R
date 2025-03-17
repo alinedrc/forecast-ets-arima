@@ -1,5 +1,5 @@
 #Graphs and metrics: 
-#Correlation and time series of residential water and electricity consumption in Joinville
+#Correlation and time series of residential water and electricity consumption in Joinville with ETS
 
 library(readxl)
 library(ggplot2)
