@@ -46,7 +46,7 @@ energy_day <- tab_cor$`kWh/inhabitant/day`
 summary(energy_day)
 
 cor.test(water_day,energy_day)
-resultado <- cor.test(a_vector, e_vector)
+resultado <- cor.test(water_day,energy_day)
 resultado$p.value
 lin_cor <- lm(energy_day ~ water_day, data = tab_cor)
 summary(lin_cor)
