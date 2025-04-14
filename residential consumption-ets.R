@@ -108,38 +108,38 @@ autoplot(water_day_ts, ylab = "liter/inhabitant/day")
 energy_day_ts <- ts(energy_day, start=c(2013, 1), end=c(2024, 3), frequency=12)
 autoplot(energy_day_ts, ylab = "kWh/inhabitant/day")
 
-#application of the arima model to water consumption per day
+#application of the ets model to water consumption per day
 
-fit2 <- ets(water_day_ts)
-autoplot(forecast(fit2), ylab = "liter/inhabitant/day")
+fit3 <- ets(water_day_ts)
+autoplot(forecast(fit3), ylab = "liter/inhabitant/day")
 
-accuracy(fit2)
-ts(fit2)
+accuracy(fit3)
+ts(fit3)
 
-res2 <- fit2$residuals
+res2 <- fit3$residuals
 plot(res2)
 acf(res2,main = "Residual series",
     xlab = "Time",
     ylab = "liter/inhabitant/day")
 
-plot(e_vector, fit2$fitted)
-cor(e_vector, fit2$fitted)
-R2_Score(fit2$fitted, e_vector)
+plot(water_day, fit3$fitted)
+cor(water_day, fit3$fitted)
+R2_Score(fit3$fitted,water_day)
 
-#application of the arima model to energy consumption per day 
+#application of the ets model to energy consumption per day 
 
-fit2 <- ets(energy_day_ts)
-autoplot(forecast(fit2), ylab = "kWh/inhabitant/day")
+fit4 <- ets(energy_day_ts)
+autoplot(forecast(fit4), ylab = "kWh/inhabitant/day")
 
-accuracy(fit2)
-ts(fit2)
+accuracy(fit4)
+ts(fit4)
 
-res2 <- fit2$residuals
+res2 <- fit4$residuals
 plot(res2)
 acf(res2,main = "Residual series",
     xlab = "Time",
     ylab = "kWh/inhabitant/day")
 
-plot(e_vector, fit2$fitted)
-cor(e_vector, fit2$fitted)
-R2_Score(fit2$fitted, e_vector)
+plot(energy_day, fit4$fitted)
+cor(energy_day, fit4$fitted)
+R2_Score(fit4$fitted,energy_day)
