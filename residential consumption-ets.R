@@ -72,9 +72,8 @@ ts(fit)
 
 res <- fit$residuals
 plot(res)
-acf(res,main = "Residual series",
-    xlab = "Time",
-    ylab = "m³/month")
+ggAcf(res, main = "Residual series") +
+  ylab("m³/month") + xlab("Time")
 
 plot(a_vector, fit$fitted)
 cor(a_vector, fit$fitted)
@@ -91,9 +90,8 @@ ts(fit2)
 
 res2 <- fit2$residuals
 plot(res2)
-acf(res2,main = "Residual series",
-    xlab = "Time",
-    ylab = "MWh/month")
+ggAcf(res2, main = "Residual series") +
+  ylab("MWh/month") + xlab("Time")
 
 plot(e_vector, fit2$fitted)
 cor(e_vector, fit2$fitted)
@@ -116,11 +114,10 @@ autoplot(forecast(fit3), ylab = "liter/inhabitant/day")
 accuracy(fit3)
 ts(fit3)
 
-res2 <- fit3$residuals
-plot(res2)
-acf(res2,main = "Residual series",
-    xlab = "Time",
-    ylab = "liter/inhabitant/day")
+res3 <- fit3$residuals
+plot(res3)
+ggAcf(res3, main = "Residual series") +
+  ylab("liter/inhabitant/day") + xlab("Time")
 
 plot(water_day, fit3$fitted)
 cor(water_day, fit3$fitted)
@@ -134,11 +131,10 @@ autoplot(forecast(fit4), ylab = "kWh/inhabitant/day")
 accuracy(fit4)
 ts(fit4)
 
-res2 <- fit4$residuals
-plot(res2)
-acf(res2,main = "Residual series",
-    xlab = "Time",
-    ylab = "kWh/inhabitant/day")
+res4 <- fit4$residuals
+plot(res4)
+ggAcf(res4, main = "Residual series") +
+  ylab("kWh/inhabitant/day") + xlab("Time")
 
 plot(energy_day, fit4$fitted)
 cor(energy_day, fit4$fitted)
