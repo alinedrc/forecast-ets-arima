@@ -48,7 +48,7 @@ head(aug)
 
 # Plot forecasts, confidence interval, and adjusted values in the time series  
 fc |>  
-  autoplot(dados) +  
+  autoplot(data) +  
   geom_line(data = aug,  
             aes(y = .fitted, colour = .model)) +   
   guides(colour = guide_legend(title = "Series"))  
@@ -63,7 +63,7 @@ aug |> features(.resid, box_pierce)
 accuracy(fit)  
 
 # Accuracy - test set - to evaluate the model  
-accuracy(fc, dados)  
+accuracy(fc, data)  
 
 # Correlation  
 # Extract actual and adjusted values  
