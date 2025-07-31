@@ -1,32 +1,42 @@
 #Graphs and metrics: 
 #Correlation and time series of residential water and electricity consumption in Joinville with ETS
 
+#Loading libraries
 library(readxl)
 library(ggplot2)
 library(forecast)
 library(MLmetrics)
 
+#Loading table
 tab_cor <- read_excel("correlation_table_joinville.xlsx")
+View(tab_cor)
 
+#Extracting monthly total consumption vectors
 a_vector <- tab_cor$`m³/month`
 e_vector <- tab_cor$`MWh/month`
 
 plot(a_vector, e_vector)
 
+#Fitting a linear regression model
 lin_model_cor <- lm(e_vector ~ a_vector, data = tab_cor)
 
+#Summary statistics of the linear model
 summary(lin_model_cor)
+
+#Regression coefficients
 coef(lin_model_cor)
 
-cor.test(a_vector, e_vector) #correlation between water and electricity consumption
+#Correlation test between water and electricity consumption
+cor.test(a_vector, e_vector)
 resultado <- cor.test(a_vector, e_vector)
-resultado$p.value
+resultado$p.value  # p-value of the correlation
 
 ggplot(data = tab_cor, aes(x = a_vector, y = e_vector)) +
   geom_point(color='black') +
   xlab("m³/month") + 
   ylab("MWh/month")
 
+#Scatter plot with linear regression line
 ggplot(data = tab_cor, aes(x = a_vector, y = e_vector)) +
   geom_point(color='black') +
   geom_smooth(method = "lm", se = FALSE, color = "black") + 
@@ -52,7 +62,7 @@ lin_cor <- lm(energy_day ~ water_day, data = tab_cor)
 summary(lin_cor)
 coef(lin_cor)
 #---------------------------------------------------------  
-#time series analysis of consumption by month
+#Time series analysis of consumption by month
   
 water_ts <- ts(a_vector, start=c(2013, 1), end=c(2024, 3), frequency=12)
 autoplot(water_ts, ylab = "m³/month")
@@ -62,7 +72,7 @@ energy_ts <- ts(e_vector, start=c(2013, 1), end=c(2024, 3), frequency=12)
 autoplot(energy_ts, ylab = "MWh/month")
 plot(decompose(energy_ts))
 
-#applying the ets model to monthly water consumption
+#Applying the ets model to monthly water consumption
 
 fit <- ets(water_ts)
 
@@ -79,7 +89,7 @@ plot(a_vector, fit$fitted)
 cor(a_vector, fit$fitted)
 R2_Score(fit$fitted, a_vector)
 
-#applying the ets model to monthly electricity consumption
+#Applying the ets model to monthly electricity consumption
 
 fit2 <- ets(energy_ts)
 
@@ -98,7 +108,7 @@ cor(e_vector, fit2$fitted)
 R2_Score(fit2$fitted, e_vector)
 
 #---------------------------------------------------------  
-#time series analysis of consumption per day
+#Time series analysis of consumption per day
 
 water_day_ts <- ts(water_day, start=c(2013, 1), end=c(2024, 3), frequency=12)
 autoplot(water_day_ts, ylab = "liter/inhabitant/day")
@@ -106,7 +116,7 @@ autoplot(water_day_ts, ylab = "liter/inhabitant/day")
 energy_day_ts <- ts(energy_day, start=c(2013, 1), end=c(2024, 3), frequency=12)
 autoplot(energy_day_ts, ylab = "kWh/inhabitant/day")
 
-#application of the ets model to water consumption per day
+#Application of the ets model to water consumption per day
 
 fit3 <- ets(water_day_ts)
 autoplot(forecast(fit3), ylab = "liter/inhabitant/day")
@@ -123,7 +133,7 @@ plot(water_day, fit3$fitted)
 cor(water_day, fit3$fitted)
 R2_Score(fit3$fitted,water_day)
 
-#application of the ets model to energy consumption per day 
+#Application of the ets model to energy consumption per day 
 
 fit4 <- ets(energy_day_ts)
 autoplot(forecast(fit4), ylab = "kWh/inhabitant/day")
