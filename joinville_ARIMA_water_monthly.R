@@ -92,7 +92,7 @@ R2
 
 #Function for linear regression (Equation 1)
 reg <- function(x){
-  y = 0.02652*x - 11852.7
+  y = 0.02562*x - 11852.7
   print(y)
 }
 
